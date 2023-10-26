@@ -1,3 +1,5 @@
-name: Home Assistant add-on repository by sfeli
-url: 'https://github.com/SFeli/HA_Addons
-maintainer: Sfeli
+{
+  "name": "Home Assistant add-on repository by SFeli",
+  "url": "https://github.com/SFeli/HA_Addons",
+  "maintainer": "Sfeli"
+}
