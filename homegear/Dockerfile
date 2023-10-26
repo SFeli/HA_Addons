@@ -1,5 +1,7 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base:7.2.0
 FROM ${BUILD_FROM}
+# Debian Bookworm --> 12.2
+# Debian Bullseye --> 11.8    debian:11.8-slim
 
 # USER root
 
@@ -7,42 +9,37 @@ ENV \
     LANG="en_US.UTF-8" \
     LANGUAGE="en_US:en" \
     LC_ALL="en_US.UTF-8" \
-    DEBIAN_FRONTEND=noninteractive \
-    CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+    DEBIAN_FRONTEND="noninteractive" \
+    CURL_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt" \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
     S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
     S6_CMD_WAIT_FOR_SERVICES=1 \
     S6_SERVICES_READYTIME=50
 
 # Set shell
-# SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-COPY run.sh /run.sh
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Base system
 WORKDIR /usr/src
 ARG BUILD_ARCH=amd64
-ARG BUILD_REF=homegear
+ARG BUILD_REF="homegear"
 ARG BUILD_VERSION=test
 ARG BASHIO_VERSION="v0.16.0"
 ARG TEMPIO_VERSION="2021.09.0"
 ARG S6_OVERLAY_VERSION="3.1.5.0"
-ARG S6_ARCH="${BUILD_ARCH}"
+#ARG S6_ARCH="${BUILD_ARCH}"
 
-
-RUN /bin/bash -c 'apt-get update && apt-get install -y --no-install-recommends wget'
-#RUN \
-#    set -x \
-#    && apt-get update && apt-get install -y --no-install-recommends \
-#        wget
-#    apt-transport-https \
-#    wget \
-#    ca-certificates \
-#    apt-utils \
-#    gnupg \
-#    libzip4 \
-#    libavahi-client3 \
-#    libavahi-client-dev insserv locales lsb-release 
+RUN \
+      set -x \
+      && apt-get update && apt-get install -y --no-install-recommends \
+        wget \
+        apt-transport-https \
+        ca-certificates \
+        apt-utils \
+        gnupg \
+        libzip4 \
+        libavahi-client3 \
+        libavahi-client-dev insserv locales lsb-release 
 RUN \
     if [ "${BUILD_ARCH}" = "i386" ]; then S6_ARCH="i686"; \
     elif [ "${BUILD_ARCH}" = "amd64" ]; then S6_ARCH="x86_64"; \
