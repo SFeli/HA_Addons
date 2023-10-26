@@ -8,7 +8,7 @@ FROM ${BUILD_FROM}
 ENV \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
-    LC_ALL=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8 
 #    DEBIAN_FRONTEND=noninteractive \
 #    CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
 #    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
