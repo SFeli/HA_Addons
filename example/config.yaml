@@ -5,8 +5,6 @@ slug: example
 description: Example add-on by SFeli
 url: "https://github.com/SFeli/HA_Addons/example"
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
   - i386
