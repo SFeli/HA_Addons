@@ -1,5 +1,4 @@
-# Debian bookworm --> 12.2
-# Debian bullseye --> 11.8 
+# Debian bookworm --> 12.2  Debian bullseye --> 11.8 
 ARG BUILD_FROM=debian:11.8-slim
 FROM $BUILD_FROM
 
@@ -17,8 +16,6 @@ ENV \
     S6_SERVICES_READYTIME=50
 
 # Set shell
-#RUN \
-#   echo 'Info: Set shell'
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Build Args
@@ -29,19 +26,6 @@ ARG BASHIO_VERSION="v0.16.0"
 ARG TEMPIO_VERSION="2021.09.0"
 ARG S6_OVERLAY_VERSION="3.1.5.0"
 
-# Labels
-LABEL \
-    io.hass.name="Homegear" \
-    io.hass.description="Homegear." \
-    io.hass.arch="${BUILD_ARCH}" \
-    io.hass.type="addon" \
-    io.hass.version=${BUILD_VERSION} \
-    maintainer="SFELI>" \
-    org.label-schema.description="Homegear." \
-    org.label-schema.build-date=${BUILD_DATE} \
-
-
-# RUN echo 'Info: Apt-get update'
 RUN \
     apt-get update \
     && apt-get -y install --no-install-recommends apt-transport-https wget ca-certificates \
@@ -82,7 +66,6 @@ RUN \
         /var/{cache,log}/* \
         /var/lib/apt/lists/*
 
-RUN echo 'Info: Touch'
 RUN \
     touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
     touch /.dockerenv; \
@@ -117,6 +100,8 @@ LABEL \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
     maintainer="Franck Nijhof <frenck@addons.community>" \
+    org.label-schema.description="Homegear." \
+    org.label-schema.build-date=${BUILD_DATE} \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
     org.opencontainers.image.vendor="Home Assistant Community Add-ons" \
