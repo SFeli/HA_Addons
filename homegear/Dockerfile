@@ -30,7 +30,7 @@ ARG S6_ARCH="${BUILD_ARCH}"
 RUN \
     apt-get update \
     \
-    && apt-get -y install --no-install-recommends \
+    && apt-get install -y --no-install-recommends \
     apt-transport-https \
     wget ca-certificates \
     apt-utils gnupg libzip4 libavahi-client3 \
