@@ -31,7 +31,8 @@ ARG S6_OVERLAY_VERSION="3.1.5.0"
 
 RUN \
       set -x \
-      && apt-get update && apt-get install -y --no-install-recommends \
+      && apt-get update \
+      && apt-get install -y --no-install-recommends \
         wget \
         apt-transport-https \
         ca-certificates \
@@ -39,7 +40,8 @@ RUN \
         gnupg \
         libzip4 \
         libavahi-client3 \
-        libavahi-client-dev insserv locales lsb-release 
+        libavahi-client-dev insserv locales lsb-release mc nano net-tools \
+        bash jq tzdata curl xz-utils
 RUN \
     if [ "${BUILD_ARCH}" = "i386" ]; then S6_ARCH="i686"; \
     elif [ "${BUILD_ARCH}" = "amd64" ]; then S6_ARCH="x86_64"; \
@@ -91,7 +93,7 @@ RUN \
 VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
 
 # Copy root filesystem
-# COPY rootfs /
+COPY rootfs /
 
 COPY run.sh /run.sh
 #RUN chmod +x /run.sh
