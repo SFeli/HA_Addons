@@ -29,9 +29,9 @@ map:
   - share:rw
 options:
   message: "Hello world..."
-  "homegear_user": "homegear"
-  "homegear_usergroup": "homegear"
+  homegear_user: "homegear"
+  homegear_usergroup: "homegear"
 schema:
   message: "str?"
-  "homegear_user": "str"
-  "homegear_usergroup": "str"
+  homegear_user: "str"
+  homegear_usergroup: "str"
