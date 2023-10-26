@@ -31,7 +31,7 @@ ARG S6_ARCH="${BUILD_ARCH}"
 RUN \
     apt-get update
     \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install \
         wget>=1.21.3-1+b2
 #    apt-transport-https \
 #    wget \
