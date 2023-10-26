@@ -29,8 +29,8 @@ ARG S6_ARCH="${BUILD_ARCH}"
 
 RUN \
     S6_ARCH="${BUILD_ARCH}"
-RUN \
-    apt-get update
+#RUN \
+#    apt-get update
 RUN apt-get install -y --no-install-recommends \
     apt-transport-https \
     wget \
