@@ -1,19 +1,15 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
-name: "SF_Homegear"
-version: "1.0.0"
+name: Example add-on
+version: "1.2.0"
 slug: example
-description: "Homegear Docker"
-url: "https://hub.docker.com/r/homegear/homegear/"
-boot: "auto",
-map: ["config:rw", "share:rw"],
-ports: {
-  "2001/tcp": 2001,
-  "2002/tcp": 2002,
-  "2003/tcp": 2003
-},
-"environment": {    },
+description: Example add-on
+url: "https://github.com/home-assistant/addons-example/tree/main/example"
 arch:
+  - armhf
+  - armv7
+  - aarch64
   - amd64
+  - i386
 init: false
 map:
   - share:rw
@@ -21,4 +17,4 @@ options:
   message: "Hello world..."
 schema:
   message: "str?"
-image: "homegear/homegear"
+image: "ghcr.io/home-assistant/{arch}-addon-example"
