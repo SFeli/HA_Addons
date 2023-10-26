@@ -22,9 +22,23 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Build Args
 ARG BUILD_ARCH=amd64
+ARG BUILD_REF=homegear
+ARG BUILD_VERSION=test
 ARG BASHIO_VERSION="v0.16.0"
 ARG TEMPIO_VERSION="2021.09.0"
 ARG S6_OVERLAY_VERSION="3.1.5.0"
+
+# Labels
+LABEL \
+    io.hass.name="Homegear" \
+    io.hass.description="Homegear." \
+    io.hass.arch="${BUILD_ARCH}" \
+    io.hass.type="addon" \
+    io.hass.version=${BUILD_VERSION} \
+    maintainer="SFELI>" \
+    org.label-schema.description="Homegear." \
+    org.label-schema.build-date=${BUILD_DATE} \
+
 
 RUN echo 'Info: Apt-get update'
 RUN apt-get update \
@@ -92,3 +106,4 @@ RUN chmod +x /run.sh
 ENTRYPOINT ["/bin/bash", "-c", "/run.sh"]
 
 EXPOSE 80 443 2001 2002 2003
+
