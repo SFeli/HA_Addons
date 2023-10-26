@@ -4,22 +4,23 @@ FROM ${BUILD_FROM}
 # USER root
 
 ENV \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US:en \
-    LC_ALL=en_US.UTF-8 
-#    DEBIAN_FRONTEND=noninteractive \
-#    CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
-#    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
-#    S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
-#    S6_CMD_WAIT_FOR_SERVICES=1 \
-#    S6_SERVICES_READYTIME=50
+    LANG="en_US.UTF-8" \
+    LANGUAGE="en_US:en" \
+    LC_ALL="en_US.UTF-8" \
+    DEBIAN_FRONTEND=noninteractive \
+    CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
+    S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
+    S6_CMD_WAIT_FOR_SERVICES=1 \
+    S6_SERVICES_READYTIME=50
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY run.sh /run.sh
 
-# Build Args
+# Base system
+WORKDIR /usr/src
 ARG BUILD_ARCH=amd64
 ARG BUILD_REF=homegear
 ARG BUILD_VERSION=test
@@ -29,10 +30,9 @@ ARG S6_OVERLAY_VERSION="3.1.5.0"
 ARG S6_ARCH="${BUILD_ARCH}"
 
 RUN \
-    apt-get update \
-    \
-    && apt-get install -y \
-        wget>=1.21.3-1+b2
+    set -x \
+    && apt-get update && apt-get install -y --no-install-recommends \
+        wget
 #    apt-transport-https \
 #    wget \
 #    ca-certificates \
