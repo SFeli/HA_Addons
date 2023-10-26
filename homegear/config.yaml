@@ -7,6 +7,10 @@ webui: "[PROTO:http]://[HOST]:[PORT:8080]/admin"
 startup: services
 hassio_api: true
 init: false
+advanced: true
+priviledged:
+  SYS_ADMIN
+  SYS_RAWIO
 host_network: true
 map: 
   - config:rw
