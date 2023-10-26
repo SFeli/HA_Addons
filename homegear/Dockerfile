@@ -15,7 +15,7 @@ ENV \
     S6_SERVICES_READYTIME=50
 
 # Set shell
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY run.sh /run.sh
 
