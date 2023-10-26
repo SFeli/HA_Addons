@@ -29,9 +29,9 @@ ARG S6_OVERLAY_VERSION="3.1.5.0"
 ARG S6_ARCH="${BUILD_ARCH}"
 
 RUN \
-    apt-get update
+    apt-get update \
     \
-    && apt-get install \
+    && apt-get install -y \
         wget>=1.21.3-1+b2
 #    apt-transport-https \
 #    wget \
