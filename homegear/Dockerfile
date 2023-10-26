@@ -2,21 +2,23 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
+USER root
+
 # Execute during the build of the image
-ARG TEMPIO_VERSION BUILD_ARCH
-RUN \
-    curl -sSLf -o /usr/bin/tempio \
-    "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
+#ARG TEMPIO_VERSION BUILD_ARCH
+#RUN \
+#    curl -sSLf -o /usr/bin/tempio \
+#    "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
 
 # Set shell
-RUN echo 'set shell'
+RUN echo 'Info: Set shell'
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN echo 'apt-get update'
+RUN echo 'Info: Apt-get update'
 RUN apt-get update 
     && apt-get -y install apt-transport-https wget ca-certificates apt-utils gnupg libzip4 libavahi-client3 libavahi-client-dev insserv locales lsb-release
 
-RUN echo 'touch'
+RUN echo 'Info: Touch'
 RUN \
     touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
     touch /.dockerenv; \
@@ -42,9 +44,9 @@ VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
 # Copy root filesystem
 # COPY rootfs /
 
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
-ENTRYPOINT ["/bin/bash", "-c", "/start.sh"]
+COPY start.sh /run.sh
+RUN chmod +x /run.sh
+ENTRYPOINT ["/bin/bash", "-c", "/run.sh"]
 
 EXPOSE 80 443 2001 2002 2003
 
