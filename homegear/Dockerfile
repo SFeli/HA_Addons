@@ -29,14 +29,11 @@ ARG S6_ARCH="${BUILD_ARCH}"
 
 RUN \
     apt-get update \
-    \
     && apt-get install -y --no-install-recommends \
     apt-transport-https \
     wget ca-certificates \
     apt-utils gnupg libzip4 libavahi-client3 \
-    libavahi-client-dev insserv locales lsb-release
-
-RUN \
+    libavahi-client-dev insserv locales lsb-release \
     if [ "${BUILD_ARCH}" = "i386" ]; then S6_ARCH="i686"; \
     elif [ "${BUILD_ARCH}" = "amd64" ]; then S6_ARCH="x86_64"; \
     elif [ "${BUILD_ARCH}" = "armv7" ]; then S6_ARCH="arm"; fi \
