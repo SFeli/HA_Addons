@@ -16,7 +16,7 @@ ENV \
     S6_SERVICES_READYTIME=50
 
 # Set shell
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Build Args
 ARG BUILD_ARCH=amd64
@@ -25,16 +25,19 @@ ARG BUILD_VERSION=test
 ARG BASHIO_VERSION="v0.16.0"
 ARG TEMPIO_VERSION="2021.09.0"
 ARG S6_OVERLAY_VERSION="3.1.5.0"
+ARG S6_ARCH="${BUILD_ARCH}"
 
 RUN \
     apt-get update \
-    && apt-get -y install --no-install-recommends apt-transport-https wget ca-certificates \
+    \
+    && apt-get -y install --no-install-recommends \
+    apt-transport-https \
+    wget ca-certificates \
     apt-utils gnupg libzip4 libavahi-client3 \
     libavahi-client-dev insserv locales lsb-release
 
 RUN \
-    S6_ARCH="${BUILD_ARCH}" \
-    && if [ "${BUILD_ARCH}" = "i386" ]; then S6_ARCH="i686"; \
+    if [ "${BUILD_ARCH}" = "i386" ]; then S6_ARCH="i686"; \
     elif [ "${BUILD_ARCH}" = "amd64" ]; then S6_ARCH="x86_64"; \
     elif [ "${BUILD_ARCH}" = "armv7" ]; then S6_ARCH="arm"; fi \
     && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz" \
