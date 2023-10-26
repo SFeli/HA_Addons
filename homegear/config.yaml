@@ -32,6 +32,6 @@ options:
   homegear_user: "homegear"
   homegear_usergroup: "homegear"
 schema:
-  - message: "str?"
-  - homegear_user: "str"
-  - homegear_usergroup: "str"
+  message: "str?"
+  homegear_user: "str"
+  homegear_usergroup: "str"
