@@ -10,10 +10,10 @@ map:
   - config:rw
   - share:rw
 ports: 
-  - 8080/tcp: 80
-  - 2001/tcp: 2001
-  - 2002/tcp: 2002
-  - 2003/tcp: 2003
+  8080/tcp: 80
+  2001/tcp: 2001
+  2002/tcp: 2002
+  2003/tcp: 2003
 ports_description:
   8080/tcp: "Zugang"
 environment: {}
