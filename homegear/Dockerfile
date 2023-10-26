@@ -5,11 +5,11 @@ FROM ${BUILD_FROM}
 # USER root
 
 ENV \
-    LANG="en_US.UTF-8" \
-    LANGUAGE="en_US:en" \
-    LC_ALL="en_US.UTF-8" \
-    DEBIAN_FRONTEND="noninteractive" \
-    CURL_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt" \
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8 \
+    DEBIAN_FRONTEND=noninteractive \
+    CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
     S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
     S6_CMD_WAIT_FOR_SERVICES=1 \
