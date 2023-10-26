@@ -1,5 +1,6 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
-name: Example add-on
+# Achtung: da das image vom Server gelesen wird ist die Version vorgegeben !!!
+name: Example add-on by SFeli
 version: "1.2.0"
 slug: example
 description: Example add-on by SFeli
@@ -10,7 +11,7 @@ arch:
   - aarch64
   - amd64
   - i386
-init: false
+init: true
 map:
   - share:rw
 options:
