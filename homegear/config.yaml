@@ -1,4 +1,3 @@
-# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: "SF_Homegear"
 version: "1.0.0"
 slug: example
@@ -21,4 +20,4 @@ options:
   message: "Hello world..."
 schema:
   message: "str?"
-image: "homegear/homegear"
+
