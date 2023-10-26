@@ -16,7 +16,7 @@ ENV \
     S6_SERVICES_READYTIME=50
 
 # Set shell
-# SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Build Args
 ARG BUILD_ARCH=amd64
@@ -27,7 +27,10 @@ ARG TEMPIO_VERSION="2021.09.0"
 ARG S6_OVERLAY_VERSION="3.1.5.0"
 ARG S6_ARCH="${BUILD_ARCH}"
 
-RUN apt-get update
+RUN \
+    S6_ARCH="${BUILD_ARCH}"
+RUN \
+    apt-get update
 RUN apt-get install -y --no-install-recommends \
     apt-transport-https \
     wget \
