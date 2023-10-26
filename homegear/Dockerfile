@@ -17,7 +17,8 @@ ENV \
     S6_SERVICES_READYTIME=50
 
 # Set shell
-RUN echo 'Info: Set shell'
+#RUN \
+#   echo 'Info: Set shell'
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Build Args
@@ -40,8 +41,9 @@ LABEL \
     org.label-schema.build-date=${BUILD_DATE} \
 
 
-RUN echo 'Info: Apt-get update'
-RUN apt-get update \
+# RUN echo 'Info: Apt-get update'
+RUN \
+    apt-get update \
     && apt-get -y install --no-install-recommends apt-transport-https wget ca-certificates \
     apt-utils gnupg libzip4 libavahi-client3 \
     libavahi-client-dev insserv locales lsb-release
