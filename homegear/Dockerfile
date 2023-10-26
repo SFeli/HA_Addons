@@ -44,7 +44,7 @@ VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
 # Copy root filesystem
 # COPY rootfs /
 
-COPY start.sh /run.sh
+COPY run.sh /run.sh
 RUN chmod +x /run.sh
 ENTRYPOINT ["/bin/bash", "-c", "/run.sh"]
 
