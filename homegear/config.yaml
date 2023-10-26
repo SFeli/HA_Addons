@@ -12,15 +12,15 @@ map:
   - config:rw
   - share:rw
 ports: 
-  8080/tcp: 80
-  2001/tcp: 2001
-  2002/tcp: 2002
-  2003/tcp: 2003
+  - 8080/tcp: 80
+  - 2001/tcp: 2001
+  - 2002/tcp: 2002
+  - 2003/tcp: 2003
 ports_description:
-  8080/tcp: "Homegear Web-Zugang"
-  2001/tcp: "Homegear port 2001"
-  2002/tcp: "Homegear port 2002"
-  2003/tcp: "Homegear port 2003
+  - 8080/tcp: "Homegear Web-Zugang"
+  - 2001/tcp: "Homegear port 2001"
+  - 2002/tcp: "Homegear port 2002"
+  - 2003/tcp: "Homegear port 2003
 environment: {}
 arch:
   - amd64
@@ -28,10 +28,10 @@ init: false
 map:
   - share:rw
 options:
-  message: "Hello world..."
-  homegear_user: "homegear"
-  homegear_usergroup: "homegear"
+  - message: "Hello world..."
+  - homegear_user: "homegear"
+  - homegear_usergroup: "homegear"
 schema:
-  message: "str?"
-  homegear_user: "str"
-  homegear_usergroup: "str"
+  - message: "str?"
+  - homegear_user: "str"
+  - homegear_usergroup: "str"
