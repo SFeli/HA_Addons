@@ -39,7 +39,7 @@ RUN touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
 RUN   \
       set -x \
       && apt-get update \
-      && apt-get install -y --no-install-recommends \
+      && apt-get install -y \
         wget \
         apt-transport-https \
         ca-certificates \
