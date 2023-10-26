@@ -1,12 +1,12 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Home Assistant Community Add-on: MQTT Server & Web client
-# Runs the MQTT Server
+# Home Assistant Community Add-on: homegear
+# Runs the homegear Server
 # ==============================================================================
 declare -a options
 
 if bashio::config.false 'broker'; then
-  bashio::log.debug 'MQTT Server is not enabled...'
+  bashio::log.debug 'Homegear Server is not enabled...'
   exec sleep 86400
 fi
 
@@ -16,5 +16,5 @@ if bashio::debug; then
   options+=(-v)
 fi
 
-bashio::log.info "Starting mosquitto MQTT Server..."
-exec mosquitto "${options[@]}"
+bashio::log.info "Starting Homegear Server..."
+exec /usr/bin/homegear -u root -g root
