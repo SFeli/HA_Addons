@@ -1,8 +1,8 @@
 # Debian bookworm --> 12.2  Debian bullseye --> 11.8 
 ARG BUILD_FROM=debian:11.8-slim
-FROM $BUILD_FROM
+FROM ${BUILD_FROM}
 
-USER root
+# USER root
 
 ENV \
     LANG="en_US.UTF-8" \
