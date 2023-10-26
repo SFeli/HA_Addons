@@ -1,17 +1,22 @@
 name: "SF_Homegear"
 version: "1.0.0"
-slug: example
-description: "Homegear Docker"
-url: "https://github.com/SFeli/homegear/"
-boot: "auto",
-map: ["config:rw", "share:rw"],
-ports: {
-  "8080/tcp": 80,
-  "2001/tcp": 2001,
-  "2002/tcp": 2002,
-  "2003/tcp": 2003
-},
-"environment": {    },
+slug: test
+description: "Homegear - Test Version 8.x in Docker"
+url: "https://github.com/SFeli/HA_Addons/homegear/"
+webui: "[PROTO:http]://[HOST]:[PORT:8080]/admin"
+startup: system
+init: false
+map: 
+  - config:rw
+  - share:rw
+ports: 
+  - 8080/tcp: 80,
+  - 2001/tcp: 2001
+  - 2002/tcp: 2002
+  - 2003/tcp: 2003
+ports_description:
+  8080/tcp: "Zugang"
+environment: {}
 arch:
   - amd64
 init: false
