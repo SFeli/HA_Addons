@@ -9,12 +9,12 @@ ENV \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8 \
-    DEBIAN_FRONTEND=noninteractive \
-    CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
-    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
-    S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
-    S6_CMD_WAIT_FOR_SERVICES=1 \
-    S6_SERVICES_READYTIME=50
+#    DEBIAN_FRONTEND=noninteractive \
+#    CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+#    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
+#    S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
+#    S6_CMD_WAIT_FOR_SERVICES=1 \
+#    S6_SERVICES_READYTIME=50
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -30,10 +30,11 @@ ARG S6_ARCH="${BUILD_ARCH}"
 
 RUN \
     S6_ARCH="${BUILD_ARCH}"
-#RUN \
-#    apt-get update
-RUN apt-get install -y --no-install-recommends \
-    wget>=1.21.3-1+b2
+RUN \
+    apt-get update
+    \
+    && apt-get install -y --no-install-recommends \
+        wget>=1.21.3-1+b2
 #    apt-transport-https \
 #    wget \
 #    ca-certificates \
