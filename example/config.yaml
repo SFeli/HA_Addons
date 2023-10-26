@@ -3,7 +3,7 @@ name: Example add-on
 version: "1.2.3"
 slug: example
 description: Example add-on by SFeli
-url: "https://github.com/SFeli/HA_Addons/tree/main/example"
+url: "https://github.com/home-assistant/addons-example/tree/main/example"
 arch:
   - armhf
   - armv7
