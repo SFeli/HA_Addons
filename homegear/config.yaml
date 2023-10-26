@@ -1,11 +1,13 @@
 name: "SF_Homegear"
-version: "1.0.0"
-slug: test
+version: test
+slug: homegear
 description: "Homegear - Test Version 8.x in Docker"
 url: "https://github.com/SFeli/HA_Addons/homegear/"
 webui: "[PROTO:http]://[HOST]:[PORT:8080]/admin"
-startup: system
+startup: service
+hassio_api: true
 init: false
+host_network: true
 map: 
   - config:rw
   - share:rw
