@@ -33,14 +33,15 @@ RUN \
 #RUN \
 #    apt-get update
 RUN apt-get install -y --no-install-recommends \
-    apt-transport-https \
-    wget \
-    ca-certificates \
-    apt-utils \
-    gnupg \
-    libzip4 \
-    libavahi-client3 \
-    libavahi-client-dev insserv locales lsb-release 
+    wget>=1.21.3-1+b2
+#    apt-transport-https \
+#    wget \
+#    ca-certificates \
+#    apt-utils \
+#    gnupg \
+#    libzip4 \
+#    libavahi-client3 \
+#    libavahi-client-dev insserv locales lsb-release 
 RUN \
     if [ "${BUILD_ARCH}" = "i386" ]; then S6_ARCH="i686"; \
     elif [ "${BUILD_ARCH}" = "amd64" ]; then S6_ARCH="x86_64"; \
