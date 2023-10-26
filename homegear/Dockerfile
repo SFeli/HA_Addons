@@ -1,5 +1,6 @@
-# Debian bookworm --> 12.2  Debian bullseye --> 11.8 
-ARG BUILD_FROM=debian:11.8-slim
+# Debian bookworm --> 12.2  Debian bullseye --> 11.8
+# BUILD_FROM=debian:11.8-slim
+ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base:7.2.0
 FROM ${BUILD_FROM}
 
 # USER root
