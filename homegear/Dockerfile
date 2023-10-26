@@ -1,5 +1,3 @@
-# Debian bookworm --> 12.2  Debian bullseye --> 11.8
-# BUILD_FROM=debian:11.8-slim
 ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base:7.2.0
 FROM ${BUILD_FROM}
 
@@ -18,6 +16,8 @@ ENV \
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+COPY run.sh /run.sh
 
 # Build Args
 ARG BUILD_ARCH=amd64
