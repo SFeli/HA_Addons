@@ -32,7 +32,11 @@ ARG TEMPIO_VERSION="2021.09.0"
 ARG S6_OVERLAY_VERSION="3.1.5.0"
 #ARG S6_ARCH="${BUILD_ARCH}"
 
-RUN \
+
+RUN touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
+    touch /.dockerenv;
+
+RUN   \
       set -x \
       && apt-get update \
       && apt-get install -y --no-install-recommends \
