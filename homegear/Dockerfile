@@ -24,7 +24,7 @@ ENV \
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Base system
-WORKDIR /usr/src
+# WORKDIR /usr/src
 ARG BUILD_ARCH=amd64
 ARG BUILD_REF="homegear"
 ARG BUILD_VERSION=test
