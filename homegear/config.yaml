@@ -8,6 +8,8 @@ startup: services
 # hassio_api: true
 init: false
 advanced: true
+uart: true
+udev: true
 priviledged:
   SYS_ADMIN
   SYS_RAWIO
