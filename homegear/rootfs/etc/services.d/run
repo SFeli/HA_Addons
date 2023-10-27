@@ -10,3 +10,4 @@ fi
 
 bashio::log.info "Starting Homegear Server..."
 exec /usr/bin/homegear -u root -g root
+
