@@ -38,8 +38,7 @@ RUN touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
 
 RUN \
     set -x \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get update && apt-get install -y --no-install-recommends \
         wget \
         apt-transport-https \
         ca-certificates \
@@ -48,12 +47,12 @@ RUN \
         libzip4 \
         libavahi-client3 \
         libavahi-client-dev insserv locales lsb-release mc nano net-tools \
-        bash jq tzdata curl xz-utils 
-#    if [ "${BUILD_ARCH}" = "i386" ]; then S6_ARCH="i686"; \
-#    elif [ "${BUILD_ARCH}" = "amd64" ]; then S6_ARCH="x86_64"; \
-#    elif [ "${BUILD_ARCH}" = "armv7" ]; then S6_ARCH="arm"; fi \
-RUN \
-    curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz" \
+        bash jq tzdata curl xz-utils \
+        && if [ "${BUILD_ARCH}" = "amd64" ]; then \
+            export S6_ARCH="x86_64"; \
+            fi \
+        \
+    && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz" \
         | tar -C / -Jxpf - \
     && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${S6_ARCH}.tar.xz" \
         | tar -C / -Jxpf - \
@@ -63,17 +62,15 @@ RUN \
         | tar -C / -Jxpf - \
     && mkdir -p /etc/fix-attrs.d \
     && mkdir -p /etc/services.d \
-    && curl -J -L -o /tmp/bashio.tar.gz \
-        "https://github.com/hassio-addons/bashio/archive/${BASHIO_VERSION}.tar.gz" \
-    && mkdir /tmp/bashio \
-    && tar zxvf \
-        /tmp/bashio.tar.gz \
-        --strip 1 -C /tmp/bashio \
-    && mv /tmp/bashio/lib /usr/lib/bashio \
-    && ln -s /usr/lib/bashio/bashio /usr/bin/bashio \
-    && curl -L -s -o /usr/bin/tempio \
+    && curl -L -f -s -o /usr/bin/tempio \
         "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}" \
     && chmod a+x /usr/bin/tempio \
+    \
+    && mkdir -p /usr/src/bashio \
+    && curl -L -f -s "https://github.com/hassio-addons/bashio/archive/v${BASHIO_VERSION}.tar.gz" \
+        | tar -xzf - --strip 1 -C /usr/src/bashio \
+    && mv /tmp/bashio/lib /usr/lib/bashio \
+    && ln -s /usr/lib/bashio/bashio /usr/bin/bashio \
     && apt-get purge -y --auto-remove \
         xz-utils \
     && apt-get clean \
