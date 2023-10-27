@@ -38,8 +38,8 @@ RUN touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
 
 RUN   \
       set -x \
-      && apt-get update \
-      && apt-get install -y \
+      && apk update \
+      && apk add --no-cache --virtual .build-dependencies \
         wget \
         apt-transport-https \
         ca-certificates \
