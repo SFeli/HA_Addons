@@ -3,17 +3,9 @@
 # Home Assistant Community Add-on: homegear
 # Runs the homegear Server
 # ==============================================================================
-declare -a options
-
 if bashio::config.false 'broker'; then
   bashio::log.debug 'Homegear Server is not enabled...'
   exec sleep 86400
-fi
-
-options+=(-c /opt/mosquitto.conf)
-
-if bashio::debug; then
-  options+=(-v)
 fi
 
 bashio::log.info "Starting Homegear Server..."
