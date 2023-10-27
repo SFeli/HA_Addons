@@ -38,7 +38,7 @@ RUN touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
     touch /.dockerenv;
 
 RUN \
-    set -x \
+    set -x; \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         wget \
@@ -90,7 +90,7 @@ RUN \
     locale-gen; \
     wget https://apt.homegear.eu/Release.key && apt-key add Release.key && rm Release.key; \
     echo 'deb https://apt.homegear.eu/debian/bullseye/homegear/testing/ bullseye main' >> /etc/apt/sources.list.d/homegear.list; \
-    apt-get update && apt-get -y install libhomegear-node homegear homegear-management homegear-webssh homegear-adminui homegear-ui homegear-nodes-core homegear-nodes-extra homegear-homematicbidcos homegear-homematicwired homegear-max homegear-zigbee homegear-ccu homegear-influxdb; \
+    apt-get update && apt-get -y install libhomegear-node homegear homegear-management homegear-webssh homegear-adminui homegear-ui homegear-max; \
     rm -f /etc/homegear/dh1024.pem; \
     rm -f /etc/homegear/homegear.crt; \
     rm -f /etc/homegear/homegear.key; \
@@ -105,7 +105,7 @@ VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
 
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
-#ENTRYPOINT ["/bin/bash", "-c", "/run.sh"]
+ENTRYPOINT ["/bin/bash", "-c", "/run.sh"]
 
 EXPOSE 80 443 2001 2002 2003
 
