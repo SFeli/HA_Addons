@@ -5,7 +5,7 @@ description: "Homegear - Test Version 8.x in Docker"
 url: "https://github.com/SFeli/HA_Addons/homegear/"
 webui: "[PROTO:http]://[HOST]:[PORT:8080]/admin"
 startup: services
-hassio_api: true
+# hassio_api: true
 init: false
 advanced: true
 priviledged:
