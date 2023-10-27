@@ -48,11 +48,12 @@ RUN \
         libzip4 \
         libavahi-client3 \
         libavahi-client-dev insserv locales lsb-release mc nano net-tools \
-        bash jq tzdata curl xz-utils \
+        bash jq tzdata curl xz-utils 
 #    if [ "${BUILD_ARCH}" = "i386" ]; then S6_ARCH="i686"; \
 #    elif [ "${BUILD_ARCH}" = "amd64" ]; then S6_ARCH="x86_64"; \
 #    elif [ "${BUILD_ARCH}" = "armv7" ]; then S6_ARCH="arm"; fi \
-    && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz" \
+RUN \
+    curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz" \
         | tar -C / -Jxpf - \
     && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${S6_ARCH}.tar.xz" \
         | tar -C / -Jxpf - \
@@ -79,8 +80,9 @@ RUN \
     && rm -fr \
         /tmp/* \
         /var/{cache,log}/* \
-        /var/lib/apt/lists/* \
-    && curl -sS https://apt.homegear.eu/Release.key \
+        /var/lib/apt/lists/* 
+RUN \
+    curl -sS https://apt.homegear.eu/Release.key \
         | apt-key add - \
     && echo "deb https://apt.homegear.eu/debian/bullseye/homegear/testing/ bullseye main" \
         > /etc/apt/sources.list.d/nodesource.list \
