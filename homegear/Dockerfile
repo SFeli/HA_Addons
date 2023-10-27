@@ -1,4 +1,4 @@
-ARG BUILD_FROM=homeassistant/amd64-base-debian:bullseye
+ARG  BUILD_FROM=ghcr.io/hassio-addons/debian-base:7.2.0
 FROM ${BUILD_FROM}
 # Debian Bookworm --> 12.2
 # Debian Bullseye --> 11.8    debian:11.8-slim
@@ -36,10 +36,10 @@ ARG S6_OVERLAY_VERSION="3.1.5.0"
 RUN touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
     touch /.dockerenv;
 
-RUN   \
-      set -x \
-      && apk update \
-      && apk add --no-cache --virtual .build-dependencies \
+RUN \
+    set -x \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
         wget \
         apt-transport-https \
         ca-certificates \
