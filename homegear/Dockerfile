@@ -70,7 +70,7 @@ RUN \
         /tmp/bashio.tar.gz \
         --strip 1 -C /tmp/bashio \
     && mv /tmp/bashio/lib /usr/lib/bashio \
-    && ln -s /usr/lib/bashio/bashio /usr/bin/bashio \
+#    && ln -s /usr/lib/bashio/bashio /usr/bin/bashio \
     && curl -L -s -o /usr/bin/tempio \
         "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}" \
     && chmod a+x /usr/bin/tempio \
