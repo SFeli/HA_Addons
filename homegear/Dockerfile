@@ -100,10 +100,10 @@ RUN \
 VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
 
 # Copy root filesystem
-COPY rootfs /
+# COPY rootfs /
 
 COPY run.sh /run.sh
-#RUN chmod +x /run.sh
+RUN chmod +x /run.sh
 #ENTRYPOINT ["/bin/bash", "-c", "/run.sh"]
 
 EXPOSE 80 443 2001 2002 2003
