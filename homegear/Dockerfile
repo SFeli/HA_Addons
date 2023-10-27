@@ -112,7 +112,8 @@ RUN \
 VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
 
 # Copy root filesystem
-# COPY rootfs /
+WORKDIR /
+COPY rootfs /
 
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
