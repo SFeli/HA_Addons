@@ -13,7 +13,9 @@ udev: true
 priviledged:
   SYS_ADMIN
   SYS_RAWIO
-host_network: true
+host_network: false
+# wenn host_network: true gibt es ggf Konflikte mit Port 80 
+# bei  host_network: false weden die Ports analog des Mappings verändernt 
 map: 
   - config:rw
   - share:rw
