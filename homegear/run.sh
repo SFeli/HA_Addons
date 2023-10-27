@@ -102,12 +102,15 @@ if ! [ -f /var/log/homegear/homegear.log ]; then
 fi
 
 if ! [ -f /etc/homegear/dh1024.pem ]; then
+	echo "Generating homegear certificates"
         openssl genrsa -out /etc/homegear/homegear.key 2048
         openssl req -batch -new -key /etc/homegear/homegear.key -out /etc/homegear/homegear.csr
         openssl x509 -req -in /etc/homegear/homegear.csr -signkey /etc/homegear/homegear.key -out /etc/homegear/homegear.crt
         rm /etc/homegear/homegear.csr
+	chown homegear:homegear /etc/homegear/homegear.key
         chmod 400 /etc/homegear/homegear.key
         openssl dhparam -check -text -5 -out /etc/homegear/dh1024.pem 1024
+	chown homegear:homegear /etc/homegear/dh1024.pem
         chmod 400 /etc/homegear/dh1024.pem
 fi
 
@@ -134,13 +137,15 @@ fi
 mkdir -p /var/run/homegear
 chown ${USER}:${USER} /var/run/homegear
 
-/etc/homegear/homegear-start.sh
+echo "Starting Homegear (/usr/bin/homegear -u ${USER} -g ${USER})"
+
+/usr/bin/homegear -u "${USER}" -g "${USER}" -p /var/run/homegear/homegear.pid -pre >> /dev/null 2>&1
 /usr/bin/homegear -u ${USER} -g ${USER} -p /var/run/homegear/homegear.pid &
-sleep 5
+sleep 10
 /usr/bin/homegear-management -p /var/run/homegear/homegear-management.pid &
-/usr/bin/homegear-webssh -p /var/run/homegear/homegear-webssh.pid &
+#/usr/bin/homegear-webssh -p /var/run/homegear/homegear-webssh.pid &
 /usr/bin/homegear-influxdb -u ${USER} -g ${USER} -p /var/run/homegear/homegear-influxdb.pid &
-tail -f /var/log/homegear/homegear-webssh.log &
+#tail -f /var/log/homegear/homegear-webssh.log &
 tail -f /var/log/homegear/homegear-flows.log &
 tail -f /var/log/homegear/homegear-scriptengine.log &
 tail -f /var/log/homegear/homegear-management.log &
