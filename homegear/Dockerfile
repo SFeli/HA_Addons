@@ -1,9 +1,10 @@
-ARG  BUILD_FROM=ghcr.io/hassio-addons/debian-base:7.2.0
+ARG  BUILD_FROM=ghcr.io/hassio-addons/debian-base:6.2.0
 FROM ${BUILD_FROM}
 # Debian Bookworm --> 12.2
 # Debian Bullseye --> 11.8    debian:11.8-slim
 # ghcr.io/home-assistant/adm64-base:3.15
-# ghcr.io/hassio-addons/debian-base:7.2.0
+# ghcr.io/hassio-addons/debian-base:7.2.0  -- Bookworm
+# ghcr.io/hassio-addons/debian-base:3.2.0  -- ??
 # homeassistant/amd64-base-debian:bullseye
 
 # USER root
