@@ -18,7 +18,28 @@ if [[ $GET_VERSION -eq 1 ]]; then
         exit $?
 fi
 
-USER=homegear
+# USER=homegear
+
+USER="$(bashio::config 'homegear_user')"
+echo "Initializing homegear as user ${USER}"
+
+mkdir -p /config/homegear \
+	/share/homegear/lib \
+	/share/homegear/log \
+	/usr/share/homegear/firmware
+
+chown homegear:homegear /config/homegear \
+	/share/homegear/lib \
+	/share/homegear/log
+
+rm -Rf /etc/homegear \
+	/var/lib/homegear \
+	/var/log/homegear
+
+ln -nfs /config/homegear     /etc/homegear
+ln -nfs /share/homegear/lib /var/lib/homegear
+ln -nfs /share/homegear/log /var/log/homegear
+
 USER_ID=$(id -u $USER)
 USER_GID=$(id -g $USER)
 USER_ID=${HOST_USER_ID:=$USER_ID}
@@ -59,11 +80,6 @@ else
         rm -Rf /var/lib/homegear/node-blue/www
         cp -a /var/lib/homegear.data/node-blue/www /var/lib/homegear/node-blue/
         [ $? -ne 0 ] && echo "Could not copy Node-BLUE frontend to \"homegear.data/node-blue/www\". Please check the permissions on this directory and make sure it is writeable."
-
-        rm -Rf /var/lib/homegear/ui/*
-        mkdir -p /var/lib/homegear.data/ui
-        mkdir -p /var/lib/homegear/ui
-        cp -a /var/lib/homegear.data/ui/* /var/lib/homegear/ui/
 
         #cd /var/lib/homegear/admin-ui; ls /var/lib/homegear/admin-ui/ | grep -v translations | xargs rm -Rf
         rm -Rf /var/lib/homegear/admin-ui/*
