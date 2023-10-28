@@ -18,10 +18,10 @@ if [[ $GET_VERSION -eq 1 ]]; then
         exit $?
 fi
 
-# USER=homegear
+USER=homegear
 
-USER="$(bashio::config 'homegear_user')"
-echo "Initializing homegear as user ${USER}"
+# USER="$(bashio::config 'homegear_user')"
+echo "Initializing homegear as user $USER"
 
 mkdir -p /config/homegear \
 	/share/homegear/lib \
@@ -41,9 +41,13 @@ ln -nfs /share/homegear/lib /var/lib/homegear
 ln -nfs /share/homegear/log /var/log/homegear
 
 USER_ID=$(id -u $USER)
+echo "Initializing user_id: $USER_ID"
+
 USER_GID=$(id -g $USER)
-USER_ID=${HOST_USER_ID:=$USER_ID}
-USER_GID=${HOST_USER_GID:=$USER_GID}
+echo "Initializing user_gid: $USER_GID"
+
+#USER_ID=${HOST_USER_ID:=$USER_ID}
+#USER_GID=${HOST_USER_GID:=$USER_GID}
 
 if [ $USER_ID -ne 0 ]; then
         sed -i -e "s/^${USER}:\([^:]*\):[0-9]*:[0-9]*/${USER}:\1:${USER_ID}:${USER_GID}/" /etc/passwd
@@ -137,7 +141,7 @@ fi
 mkdir -p /var/run/homegear
 chown ${USER}:${USER} /var/run/homegear
 
-echo "Starting Homegear (/usr/bin/homegear -u ${USER} -g ${USER})"
+echo "Starting Homegear (/usr/bin/homegear -u $USER -g $USER)"
 
 /usr/bin/homegear -u "${USER}" -g "${USER}" -p /var/run/homegear/homegear.pid -pre >> /dev/null 2>&1
 /usr/bin/homegear -u ${USER} -g ${USER} -p /var/run/homegear/homegear.pid &
