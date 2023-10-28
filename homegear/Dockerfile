@@ -46,7 +46,8 @@ RUN \
         gnupg \
         libzip4 \
         libavahi-client3 \
-        libavahi-client-dev insserv locales lsb-release mc nano net-tools \
+        libavahi-client-dev insserv locales \
+        lsb-release mc nano net-tools \
         bash jq tzdata curl xz-utils \
     && if [ "${BUILD_ARCH}" = "amd64" ]; then \
         export S6_ARCH="x86_64"; \
@@ -65,10 +66,9 @@ RUN \
     \
     && curl -L -f -s -o /usr/bin/tempio \
        "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}" \
-    && chmod a+x /usr/bin/tempio 
-
-RUN \
-    curl -J -L -o /tmp/bashio.tar.gz \
+    && chmod a+x /usr/bin/tempio \
+    \
+    && curl -J -L -o /tmp/bashio.tar.gz \
         "https://github.com/hassio-addons/bashio/archive/v0.16.0.tar.gz" \
     && mkdir /tmp/bashio \
     && tar zxvf /tmp/bashio.tar.gz --strip 1 -C /tmp/bashio \
@@ -88,8 +88,8 @@ RUN \
     touch /tmp/HOMEGEAR_STATIC_INSTALLATION \
     && touch /.dockerenv \
     && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
-    && locale-gen \
-    && wget https://apt.homegear.eu/Release.key && apt-key add Release.key && rm Release.key \
+    && locale-gen
+RUN wget https://apt.homegear.eu/Release.key && apt-key add Release.key && rm Release.key \
     && echo 'deb https://apt.homegear.eu/debian/bullseye/homegear/testing/ bullseye main' >> /etc/apt/sources.list.d/homegear.list \
     && apt-get -y install libhomegear-node homegear homegear-management homegear-webssh homegear-adminui homegear-ui homegear-nodes-core homegear-nodes-extra homegear-max \
     && rm -f /etc/homegear/dh1024.pem \
