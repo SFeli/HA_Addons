@@ -74,6 +74,7 @@ RUN \
     && tar zxvf /tmp/bashio.tar.gz --strip 1 -C /tmp/bashio 
     
 RUN mv /tmp/bashio/lib /usr/lib/bashio 
+RUN rm /usr/bin/bashio
 RUN ln -s /usr/lib/bashio/bashio /usr/bin/bashio 
 
 RUN \
