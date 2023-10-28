@@ -50,9 +50,9 @@ RUN \
         bash jq tzdata curl xz-utils \
         && if [ "${BUILD_ARCH}" = "amd64" ]; then \
             export S6_ARCH="x86_64"; \
-            fi \
-        \
-    && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz" \
+            fi
+RUN \
+    curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz" \
         | tar -C / -Jxpf - \
     && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${S6_ARCH}.tar.xz" \
         | tar -C / -Jxpf - \
@@ -61,17 +61,19 @@ RUN \
     && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-symlinks-arch.tar.xz" \
         | tar -C / -Jxpf - \
     && mkdir -p /etc/fix-attrs.d \
-    && mkdir -p /etc/services.d \
- #   && curl -L -f -s -o /usr/bin/tempio \
- #       "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}" \
- #   && chmod a+x /usr/bin/tempio \
- #   \
- #   && mkdir -p /usr/src/bashio \
- #   && curl -L -f -s "https://github.com/hassio-addons/bashio/archive/v${BASHIO_VERSION}.tar.gz" \
- #       | tar -xzf - --strip 1 -C /usr/src/bashio \
- #   && mv /tmp/bashio/lib /usr/lib/bashio \
- #   && ln -s /usr/lib/bashio/bashio /usr/bin/bashio \
-    && apt-get purge -y --auto-remove \
+    && mkdir -p /etc/services.d 
+RUN \
+   curl -L -f -s -o /usr/bin/tempio \
+       "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}" \
+   && chmod a+x /usr/bin/tempio \
+   \
+   && mkdir -p /usr/src/bashio \
+   && curl -L -f -s "https://github.com/hassio-addons/bashio/archive/v${BASHIO_VERSION}.tar.gz" \
+       | tar -xzf - --strip 1 -C /usr/src/bashio \
+   && mv /tmp/bashio/lib /usr/lib/bashio \
+   && ln -s /usr/lib/bashio/bashio /usr/bin/bashio
+RUN \
+    apt-get purge -y --auto-remove \
         xz-utils \
     && apt-get clean \
     && rm -fr \
