@@ -86,9 +86,12 @@ RUN \
         /var/{cache,log}/* \
         /var/lib/apt/lists/* 
 RUN \
-    curl -fsSL https://apt.homegear.eu/Release.key | gpg --dearmor -o /usr/share/keyrings/homegear-archive-keyring.gpg \
-    && echo 'deb [signed-by=/usr/share/keyrings/homegear-archive-keyring.gpg] https://apt-homegear.eu/debian/bullseye/homegear/testing/ bullseye main' > /etc/apt/sources.list.d/homegear.list \
-    && apt-get update \
+    touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
+    && touch /.dockerenv \
+    && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && locale-gen \
+    && wget https://apt.homegear.eu/Release.key && apt-key add Release.key && rm Release.key \
+    && echo 'deb https://apt.homegear.eu/debian/bullseye/homegear/testing/ bullseye main' >> /etc/apt/sources.list.d/homegear.list \
     && apt-get -y install libhomegear-node homegear homegear-management homegear-webssh homegear-adminui homegear-ui homegear-nodes-core homegear-nodes-extra homegear-max \
     && rm -f /etc/homegear/dh1024.pem \
     && rm -f /etc/homegear/homegear.crt \
@@ -99,12 +102,9 @@ RUN \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
         
 #RUN \
-#    touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
-#    touch /.dockerenv; \
-#    sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen; \
-#    locale-gen; \
-#    wget https://apt.homegear.eu/Release.key && apt-key add Release.key && rm Release.key; \
-#    echo 'deb https://apt.homegear.eu/debian/bullseye/homegear/testing/ bullseye main' >> /etc/apt/sources.list.d/homegear.list; \
+#    curl -fsSL https://apt.homegear.eu/Release.key | gpg --dearmor -o /usr/share/keyrings/homegear-archive-keyring.gpg \
+#    && echo 'deb [signed-by=/usr/share/keyrings/homegear-archive-keyring.gpg] https://apt-homegear.eu/debian/bullseye/homegear/testing/ bullseye main' > /etc/apt/sources.list.d/homegear.list \
+#    && apt-get update \
 #    apt-get update && apt-get -y install libhomegear-node homegear homegear-management homegear-webssh homegear-adminui homegear-ui homegear-nodes-core homegear-nodes-extra homegear-max; \
 
 
