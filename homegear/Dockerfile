@@ -33,13 +33,6 @@ ARG TEMPIO_VERSION="2021.09.0"
 ARG S6_OVERLAY_VERSION="3.1.5.0"
 ARG S6_ARCH="x86_64"
 
-RUN touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
-    touch /.dockerenv;
-
-# Copy root filesystem
-WORKDIR /
-COPY rootfs /
-
 RUN \
     set -x \
     && apt-get update && apt-get -y --no-install-recommends install \
@@ -105,14 +98,11 @@ RUN \
     cp -a /var/lib/homegear /var/lib/homegear.data; \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
         
-#RUN \
-#    curl -fsSL https://apt.homegear.eu/Release.key | gpg --dearmor -o /usr/share/keyrings/homegear-archive-keyring.gpg \
-#    && echo 'deb [signed-by=/usr/share/keyrings/homegear-archive-keyring.gpg] https://apt-homegear.eu/debian/bullseye/homegear/testing/ bullseye main' > /etc/apt/sources.list.d/homegear.list \
-#    && apt-get update \
-#    apt-get update && apt-get -y install libhomegear-node homegear homegear-management homegear-webssh homegear-adminui homegear-ui homegear-nodes-core homegear-nodes-extra homegear-max; \
-
-
 VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
+
+# Copy root filesystem
+WORKDIR /
+COPY rootfs /
 
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
