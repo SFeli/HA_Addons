@@ -71,14 +71,13 @@ RUN \
     curl -J -L -o /tmp/bashio.tar.gz \
         "https://github.com/hassio-addons/bashio/archive/v0.16.0.tar.gz" \
     && mkdir /tmp/bashio \
-    && tar zxvf /tmp/bashio.tar.gz --strip 1 -C /tmp/bashio 
-    
-RUN mv /tmp/bashio/lib /usr/lib/bashio 
-RUN rm /usr/bin/bashio
-RUN ln -s /usr/lib/bashio/bashio /usr/bin/bashio 
-
-RUN \
-    apt-get purge -y --auto-remove \
+    && tar zxvf /tmp/bashio.tar.gz --strip 1 -C /tmp/bashio \
+    \
+    && mv /tmp/bashio/lib /usr/lib/bashio \
+    && rm /usr/bin/bashio \
+    && ln -s /usr/lib/bashio/bashio /usr/bin/bashio \
+    \
+    && apt-get purge -y --auto-remove \
         xz-utils \
     && apt-get clean \
     && rm -fr \
@@ -86,7 +85,7 @@ RUN \
         /var/{cache,log}/* \
         /var/lib/apt/lists/* 
 RUN \
-    touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
+    touch /tmp/HOMEGEAR_STATIC_INSTALLATION \
     && touch /.dockerenv \
     && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
     && locale-gen \
