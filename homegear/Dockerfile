@@ -96,6 +96,7 @@ RUN \
     locale-gen; \
     wget https://apt.homegear.eu/Release.key && apt-key add Release.key && rm Release.key; \
     echo 'deb https://apt.homegear.eu/debian/bullseye/homegear/testing/ bullseye main' > /etc/apt/sources.list.d/homegear.list; \
+    apt-get update; \
     apt-get -y install libhomegear-node homegear homegear-management homegear-webssh homegear-adminui homegear-ui homegear-nodes-core homegear-nodes-extra homegear-max; \ 
     rm -f /etc/homegear/dh1024.pem; \
     rm -f /etc/homegear/homegear.crt; \
