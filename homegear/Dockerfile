@@ -70,11 +70,11 @@ RUN \
 RUN \
     curl -J -L -o /tmp/bashio.tar.gz \
         "https://github.com/hassio-addons/bashio/archive/v0.16.0.tar.gz" \
-    && mkdir /tmp/bashio 
-RUN tar zxvf /tmp/bashio.tar.gz --strip 1 -C /tmp/bashio 
+    && mkdir /tmp/bashio \
+    && tar zxvf /tmp/bashio.tar.gz --strip 1 -C /tmp/bashio 
     
-RUN mv /tmp/bashio/lib /usr/lib/bashio \
-    && ln -s /usr/lib/bashio/bashio /usr/bin/bashio 
+RUN mv /tmp/bashio/lib /usr/lib/bashio 
+RUN ln -s /usr/lib/bashio/bashio /usr/bin/bashio 
 
 RUN \
     apt-get purge -y --auto-remove \
@@ -105,12 +105,7 @@ RUN \
 #    wget https://apt.homegear.eu/Release.key && apt-key add Release.key && rm Release.key; \
 #    echo 'deb https://apt.homegear.eu/debian/bullseye/homegear/testing/ bullseye main' >> /etc/apt/sources.list.d/homegear.list; \
 #    apt-get update && apt-get -y install libhomegear-node homegear homegear-management homegear-webssh homegear-adminui homegear-ui homegear-nodes-core homegear-nodes-extra homegear-max; \
-#    rm -f /etc/homegear/dh1024.pem; \
-#    rm -f /etc/homegear/homegear.crt; \
-#    rm -f /etc/homegear/homegear.key; \
-#    cp -a /etc/homegear /etc/homegear.config; \
-#    cp -a /var/lib/homegear /var/lib/homegear.data; \
-#    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 
 VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
 
