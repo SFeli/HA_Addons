@@ -36,6 +36,10 @@ ARG S6_ARCH="x86_64"
 RUN touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
     touch /.dockerenv;
 
+# Copy root filesystem
+WORKDIR /
+COPY rootfs /
+
 RUN \
     set -x \
     && apt-get update && apt-get -y --no-install-recommends install \
@@ -84,6 +88,7 @@ RUN \
         /tmp/* \
         /var/{cache,log}/* \
         /var/lib/apt/lists/* 
+
 RUN \
     touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
     touch /.dockerenv; \
@@ -107,10 +112,6 @@ RUN \
 
 
 VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
-
-# Copy root filesystem
-WORKDIR /
-COPY rootfs /
 
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
