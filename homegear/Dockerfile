@@ -79,10 +79,8 @@ RUN \
         /var/{cache,log}/* \
         /var/lib/apt/lists/* 
 RUN \
-    curl -sS https://apt.homegear.eu/Release.key \
-        | apt-key add - \
-    && echo "deb https://apt.homegear.eu/debian/bullseye/homegear/testing/ bullseye main" \
-        > /etc/apt/sources.list.d/nodesource.list \
+    curl -fsSL https://apt.homegear.eu/Release.key | gpg --dearmor -o /usr/share/keyrings/homegear-archive-keyring.gpg \
+    && echo 'deb [signed-by=/usr/share/keyrings/homegear-archive-keyring.gpg] https://apt-homegear.eu/debian/bullseye/homegear/testing/ bullseye main' > /etc/apt/sources.list.d/homegear.list \
     && apt-get update \
     && apt-get -y install libhomegear-node homegear homegear-management homegear-webssh homegear-adminui homegear-ui homegear-nodes-core homegear-nodes-extra homegear-max \
     && rm -f /etc/homegear/dh1024.pem \
