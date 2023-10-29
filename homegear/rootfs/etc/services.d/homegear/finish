@@ -15,3 +15,7 @@ kill $(cat /var/run/homegear/homegear-management.pid)
 kill $(cat /var/run/homegear/homegear-webssh.pid)
 kill $(cat /var/run/homegear/homegear-influxdb.pid)
 kill $HOMEGEAR_PID
+
+PIDFILE=/var/run/homegear/homegear-management.pid
+start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE
+
