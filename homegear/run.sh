@@ -23,20 +23,23 @@ USER=root
 USER="$(bashio::config 'homegear_user')"
 echo "Initializing homegear as user $USER"
 
+# Erzeugen der pesitenten Verzeichnisse - werden auch auf dem Host geführt und bleieben bestehen
 mkdir -p /share/homegear/etc \
 	/share/homegear/lib \
 	/share/homegear/log \
 	/usr/share/homegear/firmware
 
-chown roo:root /config/homegear \
-	/share/homegear/lib \
-	/share/homegear/log
+chown root:root /share/homegear/etc \
+	        /share/homegear/lib \
+	        /share/homegear/log
 
-rm -Rf /etc/homegear \
+# Löschen der lokalen Verzeichnisse
+rm -Rf  /etc/homegear \
 	/var/lib/homegear \
 	/var/log/homegear
 
-ln -nfs /config/homegear     /etc/homegear
+# Erzeugen von symbolischen links auf die neuen Verzeichnisse
+ln -nfs /share/homegear/etc /etc/homegear
 ln -nfs /share/homegear/lib /var/lib/homegear
 ln -nfs /share/homegear/log /var/log/homegear
 
@@ -60,10 +63,10 @@ else
         cp -a /etc/homegear.config/devices/* /etc/homegear/devices/
 fi
 
-if test ! -e /etc/homegear/nodeBlueCredentialKey.txt; then
-        tr -dc A-Za-z0-9 < /dev/urandom | head -c 43 > /etc/homegear/nodeBlueCredentialKey.txt
-        chmod 400 /etc/homegear/nodeBlueCredentialKey.txt
-fi
+#if test ! -e /etc/homegear/nodeBlueCredentialKey.txt; then
+#        tr -dc A-Za-z0-9 < /dev/urandom | head -c 43 > /etc/homegear/nodeBlueCredentialKey.txt
+#        chmod 400 /etc/homegear/nodeBlueCredentialKey.txt
+#fi
 
 if ! [ "$(ls -A /var/lib/homegear)" ]; then
         cp -a /var/lib/homegear.data/* /var/lib/homegear/
@@ -73,23 +76,24 @@ else
         cp -a /var/lib/homegear.data/modules/* /var/lib/homegear/modules/
         [ $? -ne 0 ] && echo "Could not copy modules to \"homegear.data/modules/\". Please check the permissions on this directory and make sure it is writeable."
 
-        rm -Rf /var/lib/homegear/flows/nodes/*
-        mkdir -p /var/lib/homegear.data/node-blue/nodes
-        cp -a /var/lib/homegear.data/node-blue/nodes/* /var/lib/homegear/node-blue/nodes/
-        [ $? -ne 0 ] && echo "Could not copy nodes to \"homegear.data/node-blue/nodes\". Please check the permissions on this directory and make sure it is writeable."
-        rm -Rf /var/lib/homegear/node-blue/node-red
-        cp -a /var/lib/homegear.data/node-blue/node-red /var/lib/homegear/node-blue/
-        [ $? -ne 0 ] && echo "Could not copy nodes to \"homegear.data/node-blue/node-red\". Please check the permissions on this directory and make sure it is writeable."
+#        rm -Rf /var/lib/homegear/flows/nodes/*
+#        mkdir -p /var/lib/homegear.data/node-blue/nodes
+#        cp -a /var/lib/homegear.data/node-blue/nodes/* /var/lib/homegear/node-blue/nodes/
+#        [ $? -ne 0 ] && echo "Could not copy nodes to \"homegear.data/node-blue/nodes\". Please check the permissions on this directory and make sure it is writeable."
+#        rm -Rf /var/lib/homegear/node-blue/node-red
+#        cp -a /var/lib/homegear.data/node-blue/node-red /var/lib/homegear/node-blue/
+#        [ $? -ne 0 ] && echo "Could not copy nodes to \"homegear.data/node-blue/node-red\". Please check the permissions on this directory and make sure it is writeable."
 
-        rm -Rf /var/lib/homegear/node-blue/www
-        cp -a /var/lib/homegear.data/node-blue/www /var/lib/homegear/node-blue/
-        [ $? -ne 0 ] && echo "Could not copy Node-BLUE frontend to \"homegear.data/node-blue/www\". Please check the permissions on this directory and make sure it is writeable."
+#        rm -Rf /var/lib/homegear/node-blue/www
+#        cp -a /var/lib/homegear.data/node-blue/www /var/lib/homegear/node-blue/
+#        [ $? -ne 0 ] && echo "Could not copy Node-BLUE frontend to \"homegear.data/node-blue/www\". Please check the permissions on this directory and make sure it is writeable."
 
         #cd /var/lib/homegear/admin-ui; ls /var/lib/homegear/admin-ui/ | grep -v translations | xargs rm -Rf
         rm -Rf /var/lib/homegear/admin-ui/*
         mkdir -p /var/lib/homegear.data/admin-ui
         mkdir -p /var/lib/homegear/admin-ui
-        cp -a /var/lib/homegear.data/admin-ui/* /var/lib/homegear/admin-ui/
+ 
+	cp -a /var/lib/homegear.data/admin-ui/* /var/lib/homegear/admin-ui/
         [ $? -ne 0 ] && echo "Could not copy admin UI to \"homegear.data/admin-ui\". Please check the permissions on this directory and make sure it is writeable."
         [ ! -f /var/lib/homegear/admin-ui/.env ] && cp -a /var/lib/homegear.data/admin-ui/.env /var/lib/homegear/admin-ui/
         cp -a /var/lib/homegear.data/admin-ui/.version /var/lib/homegear/admin-ui/
@@ -141,19 +145,19 @@ fi
 mkdir -p /var/run/homegear
 chown ${USER}:${USER} /var/run/homegear
 
-echo "Starting Homegear (/usr/bin/homegear -u $USER -g $USER)"
+#echo "Starting Homegear (/usr/bin/homegear -u $USER -g $USER)"
 
-/usr/bin/homegear -u "${USER}" -g "${USER}" -p /var/run/homegear/homegear.pid -pre >> /dev/null 2>&1
-/usr/bin/homegear -u ${USER} -g ${USER} -p /var/run/homegear/homegear.pid &
-sleep 10
-/usr/bin/homegear-management -p /var/run/homegear/homegear-management.pid &
-/usr/bin/homegear-webssh -p /var/run/homegear/homegear-webssh.pid &
-/usr/bin/homegear-influxdb -u ${USER} -g ${USER} -p /var/run/homegear/homegear-influxdb.pid &
-#tail -f /var/log/homegear/homegear-webssh.log &
-tail -f /var/log/homegear/homegear-flows.log &
-tail -f /var/log/homegear/homegear-scriptengine.log &
-tail -f /var/log/homegear/homegear-management.log &
-tail -f /var/log/homegear/homegear-influxdb.log &
-tail -f /var/log/homegear/homegear.log &
-child=$!
-wait "$child"
+#/usr/bin/homegear -u "${USER}" -g "${USER}" -p /var/run/homegear/homegear.pid -pre >> /dev/null 2>&1
+#/usr/bin/homegear -u ${USER} -g ${USER} -p /var/run/homegear/homegear.pid &
+#sleep 10
+#/usr/bin/homegear-management -p /var/run/homegear/homegear-management.pid &
+#/usr/bin/homegear-webssh -p /var/run/homegear/homegear-webssh.pid &
+#/usr/bin/homegear-influxdb -u ${USER} -g ${USER} -p /var/run/homegear/homegear-influxdb.pid &
+##tail -f /var/log/homegear/homegear-webssh.log &
+#tail -f /var/log/homegear/homegear-flows.log &
+#tail -f /var/log/homegear/homegear-scriptengine.log &
+#tail -f /var/log/homegear/homegear-management.log &
+#tail -f /var/log/homegear/homegear-influxdb.log &
+#tail -f /var/log/homegear/homegear.log &
+#child=$!
+#wait "$child"
