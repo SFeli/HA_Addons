@@ -20,6 +20,7 @@ map:
   - config:rw
   - share:rw
   - etc:rw
+  - var:rw
 ports: 
   8080/tcp: 80
   2001/tcp: 2001
