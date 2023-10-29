@@ -23,12 +23,12 @@ USER=root
 USER="$(bashio::config 'homegear_user')"
 echo "Initializing homegear as user $USER"
 
-mkdir -p /config/homegear \
+mkdir -p /share/homegear/etc \
 	/share/homegear/lib \
 	/share/homegear/log \
 	/usr/share/homegear/firmware
 
-chown homegear:homegear /config/homegear \
+chown roo:root /config/homegear \
 	/share/homegear/lib \
 	/share/homegear/log
 
