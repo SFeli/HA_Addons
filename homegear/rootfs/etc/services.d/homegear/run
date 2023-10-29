@@ -8,5 +8,5 @@ if bashio::config.false 'broker'; then
   exec sleep 86400
 fi
 
-bashio::log.info "Starting Homegear Server..."
+bashio::log.info "services.d/homegear/RUN .. Starting Homegear Server..."
 exec /usr/bin/homegear -u root -g root -p /var/run/homegear/homegear.pid -pre >> /dev/null 2>&1
