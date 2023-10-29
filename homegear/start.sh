@@ -1,5 +1,10 @@
 #/bin/bash
 
+USER=root
+
+chown -R root:root /etc/homegear
+chown root:root /etc/homegear/*.key
+
 echo "Starting Homegear (/usr/bin/homegear -u $USER -g $USER)"
 
 /usr/bin/homegear -u "${USER}" -g "${USER}" -p /var/run/homegear/homegear.pid -pre >> /dev/null 2>&1
