@@ -9,4 +9,4 @@ if bashio::config.false 'broker'; then
 fi
 
 bashio::log.info "Starting Homegear Server..."
-exec /usr/bin/homegear -u root -g root
+exec /usr/bin/homegear -u root -g root -p /var/run/homegear/homegear.pid -pre >> /dev/null 2>&1
