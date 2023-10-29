@@ -18,9 +18,9 @@ if [[ $GET_VERSION -eq 1 ]]; then
         exit $?
 fi
 
-USER=homegear
+USER=root
 
-# USER="$(bashio::config 'homegear_user')"
+USER="$(bashio::config 'homegear_user')"
 echo "Initializing homegear as user $USER"
 
 mkdir -p /config/homegear \
