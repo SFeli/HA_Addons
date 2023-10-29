@@ -94,8 +94,8 @@ RUN \
     rm -f /etc/homegear/dh1024.pem; \
     rm -f /etc/homegear/homegear.crt; \
     rm -f /etc/homegear/homegear.key; \
-    cp -a /etc/homegear /etc/homegear.config; \
-    cp -a /var/lib/homegear /var/lib/homegear.data; \
+    cp -a /etc/homegear /share/homegear/etc/homegear.config; \
+    cp -a /var/lib/homegear /share/homegear/lib/homegear.data; \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
         
 # VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
@@ -106,6 +106,8 @@ COPY rootfs /
 
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 # ENTRYPOINT ["/bin/bash", "-c", "/run.sh"]
 
 # EXPOSE 80 443 2001 2002 2003
