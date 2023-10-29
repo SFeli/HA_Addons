@@ -1,3 +1,5 @@
+#/bin/bash
+
 echo "Starting Homegear (/usr/bin/homegear -u $USER -g $USER)"
 
 /usr/bin/homegear -u "${USER}" -g "${USER}" -p /var/run/homegear/homegear.pid -pre >> /dev/null 2>&1
