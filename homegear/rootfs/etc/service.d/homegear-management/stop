@@ -1,0 +1,7 @@
+#!/bin/bash
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+. /lib/lsb/init-functions
+
+PIDPATH=/var/run/homegear
+PIDFILE=$PIDPATH/homegear-management.pid
