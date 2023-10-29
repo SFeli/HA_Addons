@@ -8,7 +8,7 @@ if -n { s6-test ${1} -eq 256 }
 
 s6-svscanctl -t /var/run/s6/services
 
-bashio::log.info "Stop Homegear client / management / webssh ..."
+bashio::log.info "service.d/homegear/finish --> Stop Homegear client / management / webssh ..."
 
 HOMEGEAR_PID=$(cat /var/run/homegear/homegear.pid)
 kill $(cat /var/run/homegear/homegear-management.pid)
