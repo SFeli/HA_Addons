@@ -23,34 +23,11 @@ USER=root
 USER="$(bashio::config 'homegear_user')"
 echo "Initializing homegear as user $USER"
 
-# Erzeugen der pesitenten Verzeichnisse - werden auch auf dem Host geführt und bleieben bestehen
-mkdir -p /share/homegear/etc \
-	/share/homegear/lib \
-	/share/homegear/log \
-	/usr/share/homegear/firmware
-
-chown root:root /share/homegear/etc \
-	        /share/homegear/lib \
-	        /share/homegear/log
-
-# Löschen der lokalen Verzeichnisse
-rm -Rf  /etc/homegear \
-	/var/lib/homegear \
-	/var/log/homegear
-
-# Erzeugen von symbolischen links auf die neuen Verzeichnisse
-ln -nfs /share/homegear/etc /etc/homegear
-ln -nfs /share/homegear/lib /var/lib/homegear
-ln -nfs /share/homegear/log /var/log/homegear
-
 USER_ID=$(id -u $USER)
 echo "Initializing user_id: $USER_ID"
 
 USER_GID=$(id -g $USER)
 echo "Initializing user_gid: $USER_GID"
-
-#USER_ID=${HOST_USER_ID:=$USER_ID}
-#USER_GID=${HOST_USER_GID:=$USER_GID}
 
 if [ $USER_ID -ne 0 ]; then
         sed -i -e "s/^${USER}:\([^:]*\):[0-9]*:[0-9]*/${USER}:\1:${USER_ID}:${USER_GID}/" /etc/passwd
@@ -58,9 +35,9 @@ if [ $USER_ID -ne 0 ]; then
 fi
 
 if ! [ "$(ls -A /etc/homegear)" ]; then
-        cp -a /etc/homegear.config/* /etc/homegear/
+        cp -a /share/homegear/etc/homegear.config/* /etc/homegear/
 else
-        cp -a /etc/homegear.config/devices/* /etc/homegear/devices/
+        cp -a /share/homegear/etc/homegear.config/devices/* /etc/homegear/devices/
 fi
 
 #if test ! -e /etc/homegear/nodeBlueCredentialKey.txt; then
