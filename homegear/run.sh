@@ -46,11 +46,11 @@ fi
 #fi
 
 if ! [ "$(ls -A /var/lib/homegear)" ]; then
-        cp -a /var/lib/homegear.data/* /var/lib/homegear/
+        cp -a /share/homegear/lib/homegear.data/* /var/lib/homegear/
 else
         rm -Rf /var/lib/homegear/modules/*
-        mkdir -p /var/lib/homegear.data/modules
-        cp -a /var/lib/homegear.data/modules/* /var/lib/homegear/modules/
+        mkdir -p /share/homegear/lib/homegear.data/modules
+        cp -a /share/homegear/lib/homegear.data/modules/* /var/lib/homegear/modules/
         [ $? -ne 0 ] && echo "Could not copy modules to \"homegear.data/modules/\". Please check the permissions on this directory and make sure it is writeable."
 
 #        rm -Rf /var/lib/homegear/flows/nodes/*
@@ -58,22 +58,22 @@ else
 #        cp -a /var/lib/homegear.data/node-blue/nodes/* /var/lib/homegear/node-blue/nodes/
 #        [ $? -ne 0 ] && echo "Could not copy nodes to \"homegear.data/node-blue/nodes\". Please check the permissions on this directory and make sure it is writeable."
 #        rm -Rf /var/lib/homegear/node-blue/node-red
-#        cp -a /var/lib/homegear.data/node-blue/node-red /var/lib/homegear/node-blue/
+#        cp -a /share/homegear/lib/homegear.data/node-blue/node-red /var/lib/homegear/node-blue/
 #        [ $? -ne 0 ] && echo "Could not copy nodes to \"homegear.data/node-blue/node-red\". Please check the permissions on this directory and make sure it is writeable."
 
 #        rm -Rf /var/lib/homegear/node-blue/www
-#        cp -a /var/lib/homegear.data/node-blue/www /var/lib/homegear/node-blue/
+#        cp -a /share/homegear/lib/homegear.data/node-blue/www /var/lib/homegear/node-blue/
 #        [ $? -ne 0 ] && echo "Could not copy Node-BLUE frontend to \"homegear.data/node-blue/www\". Please check the permissions on this directory and make sure it is writeable."
 
         #cd /var/lib/homegear/admin-ui; ls /var/lib/homegear/admin-ui/ | grep -v translations | xargs rm -Rf
         rm -Rf /var/lib/homegear/admin-ui/*
-        mkdir -p /var/lib/homegear.data/admin-ui
+        mkdir -p /share/homegear/lib/homegear.data/admin-ui
         mkdir -p /var/lib/homegear/admin-ui
  
 	cp -a /var/lib/homegear.data/admin-ui/* /var/lib/homegear/admin-ui/
         [ $? -ne 0 ] && echo "Could not copy admin UI to \"homegear.data/admin-ui\". Please check the permissions on this directory and make sure it is writeable."
-        [ ! -f /var/lib/homegear/admin-ui/.env ] && cp -a /var/lib/homegear.data/admin-ui/.env /var/lib/homegear/admin-ui/
-        cp -a /var/lib/homegear.data/admin-ui/.version /var/lib/homegear/admin-ui/
+        [ ! -f /var/lib/homegear/admin-ui/.env ] && cp -a /share/homegear/lib/homegear.data/admin-ui/.env /var/lib/homegear/admin-ui/
+        cp -a /share/homegear/lib/homegear.data/admin-ui/.version /var/lib/homegear/admin-ui/
 fi
 rm -f /var/lib/homegear/homegear_updated
 
