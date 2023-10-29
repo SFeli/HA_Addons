@@ -20,7 +20,7 @@ fi
 
 USER=root
 
-USER="$(bashio::config 'homegear_user')"
+#USER="$(bashio::config 'homegear_user')"
 echo "Initializing homegear as user $USER"
 
 USER_ID=$(id -u $USER)
