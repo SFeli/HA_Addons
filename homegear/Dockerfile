@@ -87,7 +87,9 @@ RUN \
     touch /.dockerenv; \
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen; \
     locale-gen; \
-    wget https://apt.homegear.eu/Release.key && apt-key add Release.key && rm Release.key; \
+    install -m 0755 -d /etc/apt/keyrings; \
+    curl -fsSL https://apt.homegear.eu/debian/bullseye/homegear/testing/dists/bullseye/Release.gpg | gpg --dearmor -o/etc/apt/keyrings/homegear-gpg; \
+#    wget https://apt.homegear.eu/Release.key && apt-key add Release.key && rm Release.key; \
     echo 'deb https://apt.homegear.eu/debian/bullseye/homegear/testing/ bullseye main' > /etc/apt/sources.list.d/homegear.list; \
     apt-get update; \
     apt-get -y install libhomegear-node homegear homegear-management homegear-webssh homegear-adminui homegear-ui homegear-nodes-core homegear-nodes-extra homegear-max; \ 
